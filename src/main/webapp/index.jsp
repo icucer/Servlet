@@ -4,7 +4,6 @@
 <head>
     <title>Calculadora</title>
     <%@ include file="/assets/html/head.jsp" %>
-    <script src="assets/js/validacionValoresFormulario.js" defer></script>
 </head>
 <body class="bg-dark mt-60">
 <%@ include file="/assets/html/header.jsp" %>

@@ -14,31 +14,37 @@ public class Calculadora_Servlet extends HttpServlet {
         String operacion = request.getParameter("operacion");
 
         try {
-            int num1 = Integer.parseInt(numero1);
-            int num2 = Integer.parseInt(numero2);
+            int numero_1 = Integer.parseInt(numero1);
+            int numero_2 = Integer.parseInt(numero2);
             int resultado = 0;
+            String parImparResultado = "";
 
             switch (operacion) {
                 case "suma":
-                    resultado = num1 + num2;
+                    resultado = numero_1 + numero_2;
                     break;
                 case "resta":
-                    resultado = num1 - num2;
+                    resultado = numero_1 - numero_2;
                     break;
                 case "multiplicacion":
-                    resultado = num1 * num2;
+                    resultado = numero_1 * numero_2;
                     break;
                 case "division":
-                    resultado = num1 / num2;
+                    resultado = numero_1 / numero_2;
                     break;
                 case "ordenar":
-                    resultado = Math.max(num1, num2);
+                    resultado = Math.max(numero_1, numero_2);
                     break;
                 case "parImpar":
-                    // Aquí se puede implementar la lógica para par/impar
+                    parImparResultado = (esPar(numero_1) ? "Número 1 es par." : "Número 1 es impar.") + " " +
+                            (esPar(numero_2) ? "Número 2 es par." : "Número 2 es impar.");
                     break;
             }
-            request.setAttribute("resultado", resultado);
+            if (!parImparResultado.isEmpty()) {
+                request.setAttribute("resultado", parImparResultado);
+            } else
+                request.setAttribute("resultado", resultado);
+
             RequestDispatcher dispatcher = request.getRequestDispatcher("resultado.jsp");
             try {
                 dispatcher.forward(request, response);
@@ -48,5 +54,8 @@ public class Calculadora_Servlet extends HttpServlet {
         } catch (NumberFormatException e) {
             response.sendRedirect("error.jsp");
         }
+    }
+    private boolean esPar(int numero) {
+        return numero % 2 == 0;
     }
 }
